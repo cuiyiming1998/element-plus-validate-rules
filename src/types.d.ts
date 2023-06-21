@@ -36,6 +36,9 @@ export type StringOption = BaseOption<string>
 export interface SelectOption extends BaseOption<string | string[]> {
   multiple?: boolean
 }
+export interface MobileOption extends StringOption {
+  level?: 'loose' | 'medium' | 'strict'
+}
 
 export interface CreateFn {
   (option: BaseOption): Recordable | boolean

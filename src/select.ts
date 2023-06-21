@@ -24,6 +24,5 @@ export function select(option: SelectOption = {}) {
   const rangeRule = createRangeRule(option)
   pushRules(rules, rangeRule)
 
-  console.log(rules)
   return [...rules]
 }

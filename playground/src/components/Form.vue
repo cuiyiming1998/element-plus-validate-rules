@@ -6,7 +6,7 @@ import Rules from '../../../src/index'
 interface RuleForm {
   one: string
   two: string[]
-  count: string
+  three: string
   date1: string
   date2: string
   delivery: boolean
@@ -20,7 +20,7 @@ const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive<RuleForm>({
   one: 'Hello',
   two: [],
-  count: '',
+  three: '',
   date1: '',
   date2: '',
   delivery: false,
@@ -47,12 +47,11 @@ const rules = reactive<FormRules>({
       name: 'Label-2',
     }),
   ],
-  count: [
-    {
+  three: [
+    ...Rules.mobile({
       required: true,
-      message: 'Please select Activity count',
-      trigger: 'change',
-    },
+      name: 'Label-2',
+    }),
   ],
   date1: [
     {
@@ -130,7 +129,7 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
       <el-select
         v-model="ruleForm.two"
         multiple
-        placeholder="Activity zone"
+        placeholder="Label-2"
         style="width: 100%;"
       >
         <el-option label="Zone one" value="shanghai" />
@@ -138,11 +137,10 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
         <el-option label="Zone two" value="guangzhou" />
       </el-select>
     </el-form-item>
-    <el-form-item label="Activity count" prop="count">
-      <el-select-v2
-        v-model="ruleForm.count"
-        placeholder="Activity count"
-        :options="options"
+    <el-form-item label="Label-3-Mobile" prop="three">
+      <el-input
+        v-model="ruleForm.three"
+        placeholder="Label-3"
       />
     </el-form-item>
     <el-form-item label="Activity time" required>
