@@ -113,7 +113,7 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
     :rules="rules"
     label-width="120px"
     class="demo-ruleForm"
-    :size="formSize"
+    size="default"
     status-icon
   >
     <el-form-item label="Activity name" prop="name">
