@@ -6,7 +6,6 @@ export const tsup: Options = {
   sourcemap: false,
   format: ['cjs', 'esm'],
   entry: ['src/index.ts'],
-  external: ['vite'],
   dts: true,
   clean: true,
   minify: true,

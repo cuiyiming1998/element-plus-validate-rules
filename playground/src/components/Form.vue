@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
+import Rules from '../../../src/index'
 
 interface RuleForm {
-  name: string
-  region: string
+  one: string
+  two: string[]
   count: string
   date1: string
   date2: string
@@ -17,8 +18,8 @@ interface RuleForm {
 const formSize = ref('default')
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive<RuleForm>({
-  name: 'Hello',
-  region: '',
+  one: 'Hello',
+  two: [],
   count: '',
   date1: '',
   date2: '',
@@ -28,17 +29,23 @@ const ruleForm = reactive<RuleForm>({
   desc: '',
 })
 
-const rules = reactive<FormRules<RuleForm>>({
-  name: [
-    { required: true, message: 'Please input Activity name', trigger: 'blur' },
-    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
-  ],
-  region: [
-    {
+const rules = reactive<FormRules>({
+  one: [
+    ...Rules.str({
       required: true,
-      message: 'Please select Activity zone',
-      trigger: 'change',
-    },
+      min: 1,
+      max: 5,
+      name: 'Label-1',
+    }),
+  ],
+  two: [
+    ...Rules.select({
+      required: true,
+      multiple: true,
+      len: 1,
+      trigger: ['blur', 'change'],
+      name: 'Label-2',
+    }),
   ],
   count: [
     {
@@ -111,18 +118,24 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
     ref="ruleFormRef"
     :model="ruleForm"
     :rules="rules"
-    label-width="120px"
+    label-width="auto"
     class="demo-ruleForm"
     size="default"
     status-icon
   >
-    <el-form-item label="Activity name" prop="name">
-      <el-input v-model="ruleForm.name" />
+    <el-form-item label="Label-1" prop="one">
+      <el-input v-model="ruleForm.one" />
     </el-form-item>
-    <el-form-item label="Activity zone" prop="region">
-      <el-select v-model="ruleForm.region" placeholder="Activity zone">
+    <el-form-item label="Label-2 Multiple" prop="two">
+      <el-select
+        v-model="ruleForm.two"
+        multiple
+        placeholder="Activity zone"
+        style="width: 100%;"
+      >
         <el-option label="Zone one" value="shanghai" />
         <el-option label="Zone two" value="beijing" />
+        <el-option label="Zone two" value="guangzhou" />
       </el-select>
     </el-form-item>
     <el-form-item label="Activity count" prop="count">

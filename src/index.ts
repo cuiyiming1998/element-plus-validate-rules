@@ -1,1 +1,3 @@
-export const one = 1
+import { Rules } from './rules'
+
+export default new Rules()
