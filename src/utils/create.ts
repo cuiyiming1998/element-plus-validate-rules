@@ -1,8 +1,28 @@
-import type { CreateFn } from '../types.d'
+import type { BaseOption, CreateFn } from '../types.d'
+import { assign } from './object'
 import { isFakeValue } from './index'
 
-export const createMessage = (message = '', name = '', sup = '') => {
-  return message || `${name}${sup}`
+export const createMessage
+= (
+  message = '',
+  name?: string | boolean,
+  sup?: string | boolean,
+) => {
+  return message || `${name || ''}输入格式有误${sup ? `,${sup}` : ''}`
+}
+export const createRequiredMessage = (
+  message = '',
+  name?: string | boolean,
+  sup?: string | boolean,
+  type?: string,
+) => {
+  const map: Record<string, string> = {
+    string: '输入',
+    array: '选择',
+  }
+
+  const inputType = map[type || 'string']
+  return message || `${sup || `请${inputType}`}${name || ''}`
 }
 
 export const createRequiredRule: CreateFn = (option) => {
@@ -11,7 +31,7 @@ export const createRequiredRule: CreateFn = (option) => {
   if (!required)
     return false
 
-  const msg = createMessage(message, name, '为必填项')
+  const msg = createRequiredMessage(message, name, false, type)
   const rule = {
     required: true,
     message: msg,
@@ -40,11 +60,20 @@ export const createLengthRule: CreateFn = (option) => {
 
 export const createRangeRule: CreateFn = (option) => {
   const { min, max, message, name, trigger, type } = option
+  const hasMin = !isFakeValue(min)
+  const hasMax = !isFakeValue(max)
 
-  const msg = createMessage(message, name, `长度需要在${min}和${max}之间`)
-
-  if (isFakeValue(min) && isFakeValue(max))
+  let sup = ''
+  if (!hasMin && !hasMax)
     return false
+  else if (hasMin && !hasMax)
+    sup = `长度最少为${min}个字符`
+  else if (!hasMin && hasMax)
+    sup = `长度不超过${max}个字符`
+  else if (hasMin && hasMax)
+    sup = `长度需要在${min}和${max}之间`
+
+  const msg = createMessage(message, name, sup)
 
   const rule = {
     min,
@@ -59,4 +88,14 @@ export const createRangeRule: CreateFn = (option) => {
 export const pushRules = (base: any[], maybeRule: Recordable | boolean) => {
   if (maybeRule)
     base.push(maybeRule)
+}
+
+export const createBaseOption = <T = any>(name: string, option: BaseOption): BaseOption<T> => {
+  const baseOption: BaseOption = {
+    name,
+    trigger: ['blur', 'change'],
+  }
+  const o = assign(baseOption, option)
+
+  return o
 }

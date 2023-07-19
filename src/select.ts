@@ -1,5 +1,6 @@
 import type { SelectOption } from './types'
 import {
+  createBaseOption,
   createLengthRule,
   createRangeRule,
   createRequiredRule,
@@ -12,13 +13,17 @@ const getType = (multiple = false) => {
 export function select(option: SelectOption = {}) {
   const rules: any[] = []
 
-  const type = getType(option.multiple)
+  const { multiple, name } = option
+
+  const type = getType(multiple)
   option.type = type
 
-  const requiredRule = createRequiredRule(option)
+  const baseOption = createBaseOption(name || '', option)
+
+  const requiredRule = createRequiredRule(baseOption)
   pushRules(rules, requiredRule)
 
-  const lengthRule = createLengthRule(option)
+  const lengthRule = createLengthRule(baseOption)
   pushRules(rules, lengthRule)
 
   const rangeRule = createRangeRule(option)

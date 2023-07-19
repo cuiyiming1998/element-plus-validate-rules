@@ -1,21 +1,22 @@
-import { vMobile } from './utils/validate'
 import {
+  createBaseOption,
   createMessage,
   createRequiredRule,
   pushRules,
 } from './utils/create'
 import type { MobileOption } from './types'
+import M from './utils/regExpMap'
 
 const createMobileRule = (option: MobileOption = {}) => {
-  const { message, trigger, type } = option
+  const { message, trigger, type, name } = option
 
-  const msg = createMessage(message, undefined, '手机号格式有误')
+  const msg = createMessage(message, name)
   const rule = {
     required: true,
     message: msg,
     type,
-    trigger: trigger || 'blur',
-    validator: vMobile,
+    trigger,
+    pattern: M.mobile,
   }
   return rule
 }
@@ -23,10 +24,12 @@ const createMobileRule = (option: MobileOption = {}) => {
 export function mobile(option: MobileOption = {}) {
   const rules: any[] = []
 
-  const requiredRule = createRequiredRule(option)
+  const baseOption = createBaseOption('手机号', option)
+
+  const requiredRule = createRequiredRule(baseOption)
   pushRules(rules, requiredRule)
 
-  const mobileRule = createMobileRule(option)
+  const mobileRule = createMobileRule(baseOption)
   pushRules(rules, mobileRule)
 
   return [...rules]

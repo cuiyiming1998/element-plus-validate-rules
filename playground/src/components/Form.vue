@@ -3,89 +3,33 @@ import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import Rules from '../../../src/index'
 
-interface RuleForm {
-  one: string
-  two: string[]
-  three: string
-  date1: string
-  date2: string
-  delivery: boolean
-  type: string[]
-  resource: string
-  desc: string
-}
-
-const formSize = ref('default')
 const ruleFormRef = ref<FormInstance>()
-const ruleForm = reactive<RuleForm>({
-  one: 'Hello',
-  two: [],
-  three: '',
-  date1: '',
-  date2: '',
-  delivery: false,
-  type: [],
-  resource: '',
-  desc: '',
+const ruleForm = reactive<Record<string, any>>({
+  nickname: '',
+  multiple: [],
+  mobile: '',
 })
 
 const rules = reactive<FormRules>({
-  one: [
+  nickname: [
     ...Rules.str({
       required: true,
-      min: 1,
-      max: 5,
-      name: 'Label-1',
+      max: 1,
+      name: '昵称',
     }),
   ],
-  two: [
+  multiple: [
     ...Rules.select({
       required: true,
       multiple: true,
       len: 1,
-      trigger: ['blur', 'change'],
-      name: 'Label-2',
+      name: '多选',
     }),
   ],
-  three: [
+  mobile: [
     ...Rules.mobile({
       required: true,
-      name: 'Label-2',
     }),
-  ],
-  date1: [
-    {
-      type: 'date',
-      required: true,
-      message: 'Please pick a date',
-      trigger: 'change',
-    },
-  ],
-  date2: [
-    {
-      type: 'date',
-      required: true,
-      message: 'Please pick a time',
-      trigger: 'change',
-    },
-  ],
-  type: [
-    {
-      type: 'array',
-      required: true,
-      message: 'Please select at least one activity type',
-      trigger: 'change',
-    },
-  ],
-  resource: [
-    {
-      required: true,
-      message: 'Please select activity resource',
-      trigger: 'change',
-    },
-  ],
-  desc: [
-    { required: true, message: 'Please input activity form', trigger: 'blur' },
   ],
 })
 
@@ -113,89 +57,35 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
 </script>
 
 <template>
-  <el-form
-    ref="ruleFormRef"
-    :model="ruleForm"
-    :rules="rules"
-    label-width="auto"
-    class="demo-ruleForm"
-    size="default"
-    status-icon
-  >
-    <el-form-item label="Label-1" prop="one">
-      <el-input v-model="ruleForm.one" />
-    </el-form-item>
-    <el-form-item label="Label-2 Multiple" prop="two">
-      <el-select
-        v-model="ruleForm.two"
-        multiple
-        placeholder="Label-2"
-        style="width: 100%;"
-      >
-        <el-option label="Zone one" value="shanghai" />
-        <el-option label="Zone two" value="beijing" />
-        <el-option label="Zone two" value="guangzhou" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="Label-3-Mobile" prop="three">
-      <el-input
-        v-model="ruleForm.three"
-        placeholder="Label-3"
-      />
-    </el-form-item>
-    <el-form-item label="Activity time" required>
-      <el-col :span="11">
-        <el-form-item prop="date1">
-          <el-date-picker
-            v-model="ruleForm.date1"
-            type="date"
-            label="Pick a date"
-            placeholder="Pick a date"
-            style="width: 100%"
-          />
-        </el-form-item>
-      </el-col>
-      <el-col class="text-center" :span="2">
-        <span class="text-gray-500">-</span>
-      </el-col>
-      <el-col :span="11">
-        <el-form-item prop="date2">
-          <el-time-picker
-            v-model="ruleForm.date2"
-            label="Pick a time"
-            placeholder="Pick a time"
-            style="width: 100%"
-          />
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-    <el-form-item label="Instant delivery" prop="delivery">
-      <el-switch v-model="ruleForm.delivery" />
-    </el-form-item>
-    <el-form-item label="Activity type" prop="type">
-      <el-checkbox-group v-model="ruleForm.type">
-        <el-checkbox label="Online activities" name="type" />
-        <el-checkbox label="Promotion activities" name="type" />
-        <el-checkbox label="Offline activities" name="type" />
-        <el-checkbox label="Simple brand exposure" name="type" />
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="Resources" prop="resource">
-      <el-radio-group v-model="ruleForm.resource">
-        <el-radio label="Sponsorship" />
-        <el-radio label="Venue" />
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="Activity form" prop="desc">
-      <el-input v-model="ruleForm.desc" type="textarea" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)">
-        Create
-      </el-button>
-      <el-button @click="resetForm(ruleFormRef)">
-        Reset
-      </el-button>
-    </el-form-item>
-  </el-form>
+  <div>
+    <el-form
+      ref="ruleFormRef"
+      :model="ruleForm"
+      :rules="rules"
+      label-width="auto"
+      status-icon
+    >
+      <el-form-item label="昵称" prop="nickname" placeholder="昵称">
+        <el-input v-model="ruleForm.nickname" />
+      </el-form-item>
+      <el-form-item label="多选" prop="multiple">
+        <el-select
+          v-model="ruleForm.multiple"
+          multiple
+          placeholder="多选"
+          style="width: 100%;"
+        >
+          <el-option label="Zone one" value="shanghai" />
+          <el-option label="Zone two" value="beijing" />
+          <el-option label="Zone two" value="guangzhou" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="手机号" prop="mobile">
+        <el-input
+          v-model="ruleForm.mobile"
+          placeholder="手机号"
+        />
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
