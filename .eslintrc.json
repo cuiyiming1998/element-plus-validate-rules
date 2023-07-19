@@ -2,6 +2,7 @@
   "extends": "@antfu",
   "rules": {
     "no-console": "off",
-    "@typescript-eslint/ban-ts-comment": "off"
+    "@typescript-eslint/ban-ts-comment": "off",
+    "prefer-regex-literals": "off"
   }
 }

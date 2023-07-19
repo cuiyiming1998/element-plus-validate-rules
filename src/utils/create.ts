@@ -1,20 +1,25 @@
-import type { BaseOption, CreateFn } from '../types.d'
+import type {
+  BaseOption,
+  CreateFn,
+  CreateMessageFn,
+  CreateRequiredMessageFn,
+} from '../types.d'
 import { assign } from './object'
 import { isFakeValue } from './index'
 
-export const createMessage
+export const createMessage: CreateMessageFn
 = (
   message = '',
-  name?: string | boolean,
-  sup?: string | boolean,
+  name,
+  sup,
 ) => {
   return message || `${name || ''}输入格式有误${sup ? `,${sup}` : ''}`
 }
-export const createRequiredMessage = (
+export const createRequiredMessage: CreateRequiredMessageFn = (
   message = '',
-  name?: string | boolean,
-  sup?: string | boolean,
-  type?: string,
+  name,
+  sup,
+  type,
 ) => {
   const map: Record<string, string> = {
     string: '输入',
@@ -36,7 +41,7 @@ export const createRequiredRule: CreateFn = (option) => {
     required: true,
     message: msg,
     type,
-    trigger: trigger || 'blur',
+    trigger,
   }
   return rule
 }

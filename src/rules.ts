@@ -1,8 +1,10 @@
 import { string } from './string'
 import { select } from './select'
 import { mobile } from './mobile'
+import { password } from './password'
 import type {
   MobileOption,
+  PasswordOption,
   SelectOption,
   StringOption,
 } from './types'
@@ -18,5 +20,9 @@ export class Rules {
 
   mobile(option: MobileOption) {
     return mobile(option)
+  }
+
+  password(option: PasswordOption) {
+    return password(option)
   }
 }

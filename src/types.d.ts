@@ -1,3 +1,12 @@
+type Simplify<T> = {
+  [P in keyof T]: T[P]
+}
+declare type SetOptional<T, K extends keyof T> = Simplify<
+  Partial<Pick<T, K>> & Pick<T, Exclude<keyof T, K>>
+>
+declare type SetRequired<T, K extends keyof T> = Simplify<
+  Required<Pick<T, K>> & Partial<Pick<T, Exclude<keyof T, K>>>
+>
 /** 
   * ⬇️ 现在element的FormRule
   * 
@@ -32,14 +41,34 @@ export interface BaseOption<T = any> {
   validator?: (rule: any, value: T, callback: (error?: string | Error) => void, source: T, options: any) => any
 }
 
-export type StringOption = BaseOption<string>
+export type StringOption = SetRequired<BaseOption<string>, 'name'>
+
 export interface SelectOption extends BaseOption<string | string[]> {
   multiple?: boolean
 }
-export interface MobileOption extends StringOption {
+export interface MobileOption extends BaseOption<string> {
   level?: 'loose' | 'medium' | 'strict'
 }
 
 export interface CreateFn {
   (option: BaseOption): Recordable | boolean
 }
+
+export interface CreateMessageFn {
+  (
+    message?: string,
+    name?: string | boolean,
+    sup?: string | boolean,
+  ): string
+}
+
+export interface CreateRequiredMessageFn {
+  (
+    message?: string,
+    name?: string | boolean,
+    sup?: string | boolean,
+    type?: string
+  ): string
+}
+
+export type PasswordOption = BaseOption<string>

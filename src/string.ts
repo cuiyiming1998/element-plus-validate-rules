@@ -6,7 +6,7 @@ import {
   pushRules,
 } from './utils/create'
 
-export function string(option: StringOption = {}) {
+export function string(option: StringOption) {
   const rules: any[] = []
 
   const requiredRule = createRequiredRule(option)

@@ -8,13 +8,15 @@ const ruleForm = reactive<Record<string, any>>({
   nickname: '',
   multiple: [],
   mobile: '',
+  username: '',
+  password: '',
 })
 
 const rules = reactive<FormRules>({
   nickname: [
     ...Rules.str({
       required: true,
-      max: 1,
+      max: 64,
       name: '昵称',
     }),
   ],
@@ -28,6 +30,17 @@ const rules = reactive<FormRules>({
   ],
   mobile: [
     ...Rules.mobile({
+      required: true,
+    }),
+  ],
+  username: [
+    ...Rules.str({
+      required: true,
+      name: '账号',
+    }),
+  ],
+  password: [
+    ...Rules.password({
       required: true,
     }),
   ],
@@ -65,8 +78,8 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
       label-width="auto"
       status-icon
     >
-      <el-form-item label="昵称" prop="nickname" placeholder="昵称">
-        <el-input v-model="ruleForm.nickname" />
+      <el-form-item label="昵称" prop="nickname">
+        <el-input v-model="ruleForm.nickname" placeholder="昵称" />
       </el-form-item>
       <el-form-item label="多选" prop="multiple">
         <el-select
@@ -84,6 +97,19 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
         <el-input
           v-model="ruleForm.mobile"
           placeholder="手机号"
+        />
+      </el-form-item>
+      <el-form-item label="账号" prop="username">
+        <el-input
+          v-model="ruleForm.username"
+          placeholder="账号"
+        />
+      </el-form-item>
+      <el-form-item label="密码" prop="password">
+        <el-input
+          v-model="ruleForm.password"
+          type="password"
+          placeholder="密码"
         />
       </el-form-item>
     </el-form>
