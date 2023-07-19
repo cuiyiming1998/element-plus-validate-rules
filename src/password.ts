@@ -1,9 +1,7 @@
 import type { PasswordOption } from './types'
 import {
   createBaseOption,
-  createLengthRule,
   createMessage,
-  createRangeRule,
   createRequiredRule,
   pushRules,
 } from './utils/create'
@@ -35,10 +33,5 @@ export function password(option: PasswordOption) {
   const regExpRule = createPasswordValidator(baseOption)
   pushRules(rules, regExpRule)
 
-  const lengthRule = createLengthRule(baseOption)
-  pushRules(rules, lengthRule)
-
-  const rangeRule = createRangeRule(baseOption)
-  pushRules(rules, rangeRule)
   return [...rules]
 }

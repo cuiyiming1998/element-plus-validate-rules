@@ -71,4 +71,4 @@ export interface CreateRequiredMessageFn {
   ): string
 }
 
-export type PasswordOption = BaseOption<string>
+export type PasswordOption = Omit<BaseOption<string>, 'max' | 'min' | 'len'>
