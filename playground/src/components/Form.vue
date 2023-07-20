@@ -10,6 +10,7 @@ const ruleForm = reactive<Record<string, any>>({
   mobile: '',
   username: '',
   password: '',
+  code: '',
 })
 
 const rules = reactive<FormRules>({
@@ -42,6 +43,13 @@ const rules = reactive<FormRules>({
   password: [
     ...Rules.password({
       required: true,
+    }),
+  ],
+  code: [
+    ...Rules.numberStr({
+      required: true,
+      name: '编码',
+      max: 3,
     }),
   ],
 })
@@ -110,6 +118,12 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
           v-model="ruleForm.password"
           type="password"
           placeholder="密码"
+        />
+      </el-form-item>
+      <el-form-item label="仅为数字的编码" prop="code">
+        <el-input
+          v-model="ruleForm.code"
+          placeholder="仅为数字的编码"
         />
       </el-form-item>
     </el-form>

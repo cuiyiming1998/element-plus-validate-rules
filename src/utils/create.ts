@@ -76,7 +76,7 @@ export const createRangeRule: CreateFn = (option) => {
   else if (!hasMin && hasMax)
     sup = `长度不超过${max}个字符`
   else if (hasMin && hasMax)
-    sup = `长度需要在${min}和${max}之间`
+    sup = `长度需要在${min}和${max}个字符之间`
 
   const msg = createMessage(message, name, sup)
 

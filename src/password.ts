@@ -1,4 +1,4 @@
-import type { PasswordOption } from './types'
+import type { BaseOption, PasswordOption } from './types'
 import {
   createBaseOption,
   createMessage,
@@ -23,7 +23,7 @@ const createPasswordValidator = (option: PasswordOption) => {
 }
 
 export function password(option: PasswordOption) {
-  const rules: any[] = []
+  const rules: BaseOption[] = []
 
   const baseOption = createBaseOption('密码', option)
 

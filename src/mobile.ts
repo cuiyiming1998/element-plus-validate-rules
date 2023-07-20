@@ -4,7 +4,7 @@ import {
   createRequiredRule,
   pushRules,
 } from './utils/create'
-import type { MobileOption } from './types'
+import type { BaseOption, MobileOption } from './types'
 import M from './utils/regExpMap'
 
 const createMobileRule = (option: MobileOption = {}) => {
@@ -22,7 +22,7 @@ const createMobileRule = (option: MobileOption = {}) => {
 }
 
 export function mobile(option: MobileOption = {}) {
-  const rules: any[] = []
+  const rules: BaseOption[] = []
 
   const baseOption = createBaseOption('手机号', option)
 
