@@ -26,7 +26,7 @@ declare type SetRequired<T, K extends keyof T> = Simplify<
   * 
 */
 
-type RuleType = 'string' | 'number' | 'boolean' | 'method' | 'regexp' | 'integer' | 'float' | 'array' | 'object' | 'enum' | 'date' | 'url' | 'hex' | 'email' | 'pattern' | 'any';
+export type RuleType = 'string' | 'number' | 'boolean' | 'method' | 'regexp' | 'integer' | 'float' | 'array' | 'object' | 'enum' | 'date' | 'url' | 'hex' | 'email' | 'pattern' | 'any';
 export interface BaseOption<T = any> {
   min?: number
   max?: number
@@ -41,16 +41,18 @@ export interface BaseOption<T = any> {
   validator?: (rule: any, value: T, callback: (error?: string | Error) => void, source: T, options: any) => any
 }
 
+type RemoveLength<T = BaseOption<string>> = Omit<T, 'max' | 'min' | 'len'>
+
 export type StringOption = SetRequired<BaseOption<string>, 'name'>
 
 export interface SelectOption extends BaseOption<string | string[]> {
   multiple?: boolean
 }
-export interface MobileOption extends Omit<BaseOption<string>, 'max' | 'min' | 'len'> {
+export interface MobileOption extends RemoveLength {
   level?: 'loose' | 'medium' | 'strict'
 }
 
-export type TelOption = Omit<BaseOption<string>, 'max' | 'min' | 'len'>
+export type TelOption = RemoveLength
 
 export interface CreateFn {
   (option: BaseOption): BaseOption | boolean
@@ -73,4 +75,8 @@ export interface CreateRequiredMessageFn {
   ): string
 }
 
-export type PasswordOption = Omit<BaseOption<string>, 'max' | 'min' | 'len'>
+export type PasswordOption = RemoveLength<BaseOption<string>>
+
+export type TimeOption = SetRequired<RemoveLength<BaseOption<string>>, 'name'>
+
+export type DecimalOption = SetRequired<Omit<BaseOption<number>, 'len'>, 'name'>

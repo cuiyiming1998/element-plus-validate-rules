@@ -1,7 +1,6 @@
-import type { BaseOption, StringOption } from './types'
+import type { BaseOption, DecimalOption } from './types'
 import {
   createBaseOption,
-  createLengthRule,
   createMessage,
   createRangeRule,
   createRequiredRule,
@@ -12,19 +11,21 @@ import M from './utils/regExpMap'
 const createPatternRule = (option: BaseOption): BaseOption => {
   const { message, trigger, name } = option
 
-  const msg = createMessage(message, name, '应仅为数字')
+  const msg = createMessage(message, name, '最多保留两位小数')
   const rule: BaseOption = {
-    pattern: M.numberString,
+    pattern: M.decimal,
     message: msg,
     trigger,
   }
   return rule
 }
 
-export function numberStr(option: StringOption) {
+export function decimal(option: DecimalOption) {
+  const { name, type } = option
+
   const rules: BaseOption[] = []
 
-  const baseOption = createBaseOption(option.name, option)
+  const baseOption = createBaseOption(name, option, type || 'number')
 
   const requiredRule = createRequiredRule(baseOption)
   pushRules(rules, requiredRule)
@@ -32,10 +33,7 @@ export function numberStr(option: StringOption) {
   const patternRule = createPatternRule(baseOption)
   pushRules(rules, patternRule)
 
-  const lengthRule = createLengthRule(baseOption)
-  pushRules(rules, lengthRule)
-
-  const rangeRule = createRangeRule(option)
+  const rangeRule = createRangeRule(baseOption)
   pushRules(rules, rangeRule)
 
   return [...rules]

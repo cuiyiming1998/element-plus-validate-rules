@@ -3,6 +3,7 @@ import type {
   CreateFn,
   CreateMessageFn,
   CreateRequiredMessageFn,
+  RuleType,
 } from '../types.d'
 import { assign } from './object'
 import { isFakeValue } from './index'
@@ -68,15 +69,26 @@ export const createRangeRule: CreateFn = (option) => {
   const hasMin = !isFakeValue(min)
   const hasMax = !isFakeValue(max)
 
-  let sup = ''
   if (!hasMin && !hasMax)
     return false
-  else if (hasMin && !hasMax)
-    sup = `长度最少为${min}个字符`
-  else if (!hasMin && hasMax)
-    sup = `长度不超过${max}个字符`
-  else if (hasMin && hasMax)
-    sup = `长度需要在${min}和${max}个字符之间`
+
+  let sup = ''
+  if (type === 'string') {
+    if (hasMin && !hasMax)
+      sup = `长度最少为${min}个字符`
+    else if (!hasMin && hasMax)
+      sup = `长度不超过${max}个字符`
+    else if (hasMin && hasMax)
+      sup = `长度需要在${min}和${max}个字符之间`
+  }
+  else if (type === 'number') {
+    if (hasMin && !hasMax)
+      sup = `最小为${min}`
+    else if (!hasMin && hasMax)
+      sup = `最大为${max}`
+    else if (hasMin && hasMax)
+      sup = `需要在${min}和${max}之间`
+  }
 
   const msg = createMessage(message, name, sup)
 
@@ -95,10 +107,11 @@ export const pushRules = (base: any[], maybeRule: Recordable | boolean) => {
     base.push(maybeRule)
 }
 
-export const createBaseOption = <T = any>(name: string, option?: BaseOption): BaseOption<T> => {
+export const createBaseOption = <T = any>(name: string, option?: BaseOption, type?: RuleType): BaseOption<T> => {
   const baseOption: BaseOption = {
     name,
     trigger: ['blur', 'change'],
+    type: type || 'string',
   }
   const o = assign(baseOption, option)
 

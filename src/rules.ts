@@ -4,12 +4,16 @@ import { mobile } from './mobile'
 import { tel } from './tel'
 import { password } from './password'
 import { numberStr } from './numberString'
+import { todayAfter } from './time'
+import { decimal } from './decimal'
 import type {
+  DecimalOption,
   MobileOption,
   PasswordOption,
   SelectOption,
   StringOption,
   TelOption,
+  TimeOption,
 } from './types'
 
 export class Rules {
@@ -35,5 +39,13 @@ export class Rules {
 
   password(option?: PasswordOption) {
     return password(option)
+  }
+
+  todayAfter(option: TimeOption) {
+    return todayAfter(option)
+  }
+
+  decimal(option: DecimalOption) {
+    return decimal(option)
   }
 }

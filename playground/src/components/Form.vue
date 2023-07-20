@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import type { FormInstance, FormRules } from 'element-plus'
+import { ElInputNumber, type FormInstance, type FormRules } from 'element-plus'
 import Rules from '../../../src/index'
 
 const ruleFormRef = ref<FormInstance>()
@@ -12,6 +12,8 @@ const ruleForm = reactive<Record<string, any>>({
   password: '',
   code: '',
   tel: '',
+  todayAfter: '',
+  number: 0,
 })
 
 const rules = reactive<FormRules>({
@@ -55,6 +57,20 @@ const rules = reactive<FormRules>({
   ],
   tel: [
     ...Rules.tel(),
+  ],
+  todayAfter: [
+    ...Rules.todayAfter({
+      name: '时间',
+      required: true,
+    }),
+  ],
+  number: [
+    ...Rules.decimal({
+      required: true,
+      name: '数字',
+      min: 1,
+      max: 10,
+    }),
   ],
 })
 
@@ -134,6 +150,20 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
         <el-input
           v-model="ruleForm.tel"
           placeholder="固定电话"
+        />
+      </el-form-item>
+      <el-form-item label="今日之后" prop="todayAfter">
+        <el-date-picker
+          v-model="ruleForm.todayAfter"
+          type="date"
+          placeholder="今日之后"
+        />
+      </el-form-item>
+      <el-form-item label="数字" prop="number">
+        <ElInputNumber
+          v-model="ruleForm.number"
+          type="number"
+          placeholder="数字"
         />
       </el-form-item>
     </el-form>
