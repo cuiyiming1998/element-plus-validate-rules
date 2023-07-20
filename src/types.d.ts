@@ -46,12 +46,14 @@ export type StringOption = SetRequired<BaseOption<string>, 'name'>
 export interface SelectOption extends BaseOption<string | string[]> {
   multiple?: boolean
 }
-export interface MobileOption extends BaseOption<string> {
+export interface MobileOption extends Omit<BaseOption<string>, 'max' | 'min' | 'len'> {
   level?: 'loose' | 'medium' | 'strict'
 }
 
+export type TelOption = Omit<BaseOption<string>, 'max' | 'min' | 'len'>
+
 export interface CreateFn {
-  (option: BaseOption): Recordable | boolean
+  (option: BaseOption): BaseOption | boolean
 }
 
 export interface CreateMessageFn {

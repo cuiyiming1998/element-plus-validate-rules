@@ -22,7 +22,7 @@ const createPasswordValidator = (option: PasswordOption) => {
   return rule
 }
 
-export function password(option: PasswordOption) {
+export function password(option: PasswordOption = {}) {
   const rules: BaseOption[] = []
 
   const baseOption = createBaseOption('密码', option)

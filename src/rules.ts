@@ -1,6 +1,7 @@
 import { string } from './string'
 import { select } from './select'
 import { mobile } from './mobile'
+import { tel } from './tel'
 import { password } from './password'
 import { numberStr } from './numberString'
 import type {
@@ -8,6 +9,7 @@ import type {
   PasswordOption,
   SelectOption,
   StringOption,
+  TelOption,
 } from './types'
 
 export class Rules {
@@ -23,11 +25,15 @@ export class Rules {
     return select(option)
   }
 
-  mobile(option: MobileOption) {
+  mobile(option?: MobileOption) {
     return mobile(option)
   }
 
-  password(option: PasswordOption) {
+  tel(option?: TelOption) {
+    return tel(option)
+  }
+
+  password(option?: PasswordOption) {
     return password(option)
   }
 }

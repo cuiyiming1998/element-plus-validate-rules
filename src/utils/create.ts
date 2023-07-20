@@ -95,7 +95,7 @@ export const pushRules = (base: any[], maybeRule: Recordable | boolean) => {
     base.push(maybeRule)
 }
 
-export const createBaseOption = <T = any>(name: string, option: BaseOption): BaseOption<T> => {
+export const createBaseOption = <T = any>(name: string, option?: BaseOption): BaseOption<T> => {
   const baseOption: BaseOption = {
     name,
     trigger: ['blur', 'change'],
