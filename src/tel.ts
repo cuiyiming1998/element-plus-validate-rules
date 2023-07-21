@@ -8,7 +8,7 @@ import type { BaseOption, TelOption } from './types'
 import M from './utils/regExpMap'
 
 const createTelRule = (option: BaseOption) => {
-  const { message, trigger, type, name } = option
+  const { message, trigger, type, name, pattern } = option
 
   const msg = createMessage(message, name)
   const rule = {
@@ -16,7 +16,7 @@ const createTelRule = (option: BaseOption) => {
     message: msg,
     type,
     trigger,
-    pattern: M.tel,
+    pattern: pattern || M.tel,
   }
   return rule
 }

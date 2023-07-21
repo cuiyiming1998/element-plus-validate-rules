@@ -81,25 +81,31 @@ const rules: FormRules = [
 | :--: | :--: | :--: | :--: |
 | multiple | boolean | 是否为多选 | 否 |
 
+### decimal
+
+| Name | Type | Desc | 是否必填 |
+| :--: | :--: | :--: | :--: |
+| precision | number | 精度 | 否 |
+
+小数类型验证, 精度默认为0, 即整数
+
+### int
+
+整数类型验证
+
 ### numberStr
 
 内容为纯数字的`string`类型验证
 
 ### mobile
 
-> TODO: 可配置正则
-
 手机号验证
 
 ### password
 
-> TODO: 可配置正则
-
 密码验证, 目前验证规则为 **至少八个字符, 至少一个字母, 一个数字和一个特殊字符**
 
 ### tel
-
-> TODO: 可配置正则
 
 固定电话验证
 
@@ -108,12 +114,6 @@ const rules: FormRules = [
 > WIP
 
 时间类型验证
-
-### decimal
-
-> TODO: 可配置精度
-
-小数类型验证, 目前只支持小数点后2位
 
 ## License
 

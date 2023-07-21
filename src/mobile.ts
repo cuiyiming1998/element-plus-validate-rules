@@ -8,7 +8,7 @@ import type { BaseOption, MobileOption } from './types'
 import M from './utils/regExpMap'
 
 const createMobileRule = (option: MobileOption = {}) => {
-  const { message, trigger, type, name } = option
+  const { message, trigger, type, name, pattern } = option
 
   const msg = createMessage(message, name)
   const rule = {
@@ -16,7 +16,7 @@ const createMobileRule = (option: MobileOption = {}) => {
     message: msg,
     type,
     trigger,
-    pattern: M.mobile,
+    pattern: pattern || M.mobile,
   }
   return rule
 }

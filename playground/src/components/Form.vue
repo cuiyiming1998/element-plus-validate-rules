@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import { ElInputNumber, type FormInstance, type FormRules } from 'element-plus'
-import Rules from 'element-plus-validate-rules'
+import Rules from '../../../src/index'
 
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive<Record<string, any>>({
@@ -14,6 +14,7 @@ const ruleForm = reactive<Record<string, any>>({
   tel: '',
   todayAfter: '',
   number: 0,
+  int: 1,
 })
 
 const rules = reactive<FormRules>({
@@ -68,8 +69,13 @@ const rules = reactive<FormRules>({
     ...Rules.decimal({
       required: true,
       name: '数字',
-      min: 1,
-      max: 10,
+      precision: 1,
+    }),
+  ],
+  int: [
+    ...Rules.int({
+      required: true,
+      name: '整数',
     }),
   ],
 })
@@ -164,6 +170,13 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
           v-model="ruleForm.number"
           type="number"
           placeholder="数字"
+        />
+      </el-form-item>
+      <el-form-item label="整数" prop="int">
+        <ElInputNumber
+          v-model="ruleForm.int"
+          type="number"
+          placeholder="整数"
         />
       </el-form-item>
     </el-form>

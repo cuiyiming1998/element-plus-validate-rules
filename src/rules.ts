@@ -6,8 +6,10 @@ import { password } from './password'
 import { numberStr } from './numberString'
 import { todayAfter } from './time'
 import { decimal } from './decimal'
+import { int } from './int'
 import type {
   DecimalOption,
+  IntOption,
   MobileOption,
   PasswordOption,
   SelectOption,
@@ -47,5 +49,9 @@ export class Rules {
 
   decimal(option: DecimalOption) {
     return decimal(option)
+  }
+
+  int(option: IntOption) {
+    return int(option)
   }
 }

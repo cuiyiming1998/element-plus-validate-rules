@@ -24,6 +24,7 @@ export const createRequiredMessage: CreateRequiredMessageFn = (
 ) => {
   const map: Record<string, string> = {
     string: '输入',
+    number: '输入',
     array: '选择',
   }
 

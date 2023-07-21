@@ -79,4 +79,7 @@ export type PasswordOption = RemoveLength<BaseOption<string>>
 
 export type TimeOption = SetRequired<RemoveLength<BaseOption<string>>, 'name'>
 
-export type DecimalOption = SetRequired<Omit<BaseOption<number>, 'len'>, 'name'>
+export type IntOption = SetRequired<Omit<BaseOption<number>, 'len'>, 'name'> 
+export interface DecimalOption extends SetRequired<Omit<BaseOption<number>, 'len'>, 'name'> {
+  precision?: number
+}
