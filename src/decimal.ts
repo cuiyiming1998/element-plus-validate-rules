@@ -13,7 +13,7 @@ const createSuffixMessage = (precision?: number) => {
   let num
   if (precision)
     num = CnMap[precision]
-  const msg = precision ? `最多保留${precision}位小数` : '应为整数'
+  const msg = precision ? `最多保留${num}位小数` : '应为整数'
 
   return msg
 }
