@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "element-plus": "^2.3.8",
+    "element-plus-validate-rules": "workspace:^",
     "vue": "^3.3.4"
   },
   "devDependencies": {

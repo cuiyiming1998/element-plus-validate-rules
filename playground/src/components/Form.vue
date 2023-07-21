@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import { ElInputNumber, type FormInstance, type FormRules } from 'element-plus'
-import Rules from '../../../src/index'
+import Rules from 'element-plus-validate-rules'
 
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive<Record<string, any>>({
