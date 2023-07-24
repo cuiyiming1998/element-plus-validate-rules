@@ -12,7 +12,6 @@ const createMobileRule = (option: MobileOption = {}) => {
 
   const msg = createMessage(message, name)
   const rule = {
-    required: true,
     message: msg,
     type,
     trigger,

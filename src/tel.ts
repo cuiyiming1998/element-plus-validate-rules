@@ -12,7 +12,6 @@ const createTelRule = (option: BaseOption) => {
 
   const msg = createMessage(message, name)
   const rule = {
-    required: true,
     message: msg,
     type,
     trigger,

@@ -13,7 +13,6 @@ const createPasswordValidator = (option: PasswordOption) => {
   const sup = '至少八个字符, 至少一个字母, 一个数字和一个特殊字符'
   const msg = createMessage(message, name, sup)
   const rule = {
-    required: true,
     message: msg,
     type,
     pattern: pattern || M.password,
