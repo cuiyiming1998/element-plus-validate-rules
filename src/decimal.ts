@@ -7,6 +7,7 @@ import {
   createRequiredRule,
   pushRules,
 } from './utils/create'
+import M from './utils/regExpMap'
 
 const createSuffixMessage = (precision?: number) => {
   const CnMap = ['零', '一', '两', '三', '四', '五', '六', '七', '八', '九']
@@ -27,9 +28,15 @@ const createPatternRule = (option: DecimalOption): BaseOption => {
 
   const msg = createMessage(message, name, m)
 
-  const validator = (_: any, value: number, cb: Fn) => {
+  const validator = (_: any, value: number | string, cb: Fn) => {
     if (isFakeValue(value))
       cb(new Error(msg))
+
+    const valueStr = value.toString()
+    if (!M.numberString.test(valueStr)) {
+      const numberError = createMessage(message, name, '应为数字')
+      cb(new Error(numberError))
+    }
 
     const values = value.toString().split('.')
     if (values.length > 2)

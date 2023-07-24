@@ -15,6 +15,7 @@ const ruleForm = reactive<Record<string, any>>({
   todayAfter: '',
   number: 0,
   int: 1,
+  numberString: '',
 })
 
 const rules = reactive<FormRules>({
@@ -78,6 +79,11 @@ const rules = reactive<FormRules>({
       name: '整数',
     }),
   ],
+  numberString: Rules.decimal({
+    type: 'string',
+    name: '数字String',
+    precision: 2,
+  }),
 })
 
 const submitForm = async (formEl: FormInstance | undefined) => {
@@ -177,6 +183,12 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
           v-model="ruleForm.int"
           type="number"
           placeholder="整数"
+        />
+      </el-form-item>
+      <el-form-item label="数字String" prop="numberString">
+        <ElInput
+          v-model="ruleForm.numberString"
+          placeholder="数字String"
         />
       </el-form-item>
     </el-form>
