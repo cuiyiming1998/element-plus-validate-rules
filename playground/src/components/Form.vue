@@ -16,6 +16,7 @@ const ruleForm = reactive<Record<string, any>>({
   number: 0,
   int: 1,
   numberString: '',
+  lat: '',
 })
 
 const rules = reactive<FormRules>({
@@ -83,6 +84,11 @@ const rules = reactive<FormRules>({
     type: 'string',
     name: '数字String',
     precision: 2,
+  }),
+  lat: Rules.str({
+    name: '纬度',
+    pattern: /^[\-\+]?([0-8]?\d{1}\.\d{1,5}|90\.0{1,5})$/,
+    message: '纬度输入格式有误，请重新输入',
   }),
 })
 
@@ -189,6 +195,12 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
         <ElInput
           v-model="ruleForm.numberString"
           placeholder="数字String"
+        />
+      </el-form-item>
+      <el-form-item label="纬度" prop="lat">
+        <ElInput
+          v-model="ruleForm.lat"
+          placeholder="lat"
         />
       </el-form-item>
     </el-form>

@@ -20,5 +20,6 @@ export function string(option: StringOption) {
 
   const rangeRule = createRangeRule(baseOption)
   pushRules(rules, rangeRule)
+
   return [...rules]
 }

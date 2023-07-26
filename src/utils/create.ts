@@ -33,17 +33,15 @@ export const createRequiredMessage: CreateRequiredMessageFn = (
 }
 
 export const createRequiredRule: CreateFn = (option) => {
-  const { required, message, name, trigger, type } = option
-
-  if (!required)
-    return false
+  const { required, message, name, trigger, type, pattern } = option
 
   const msg = createRequiredMessage(message, name, false, type)
   const rule = {
-    required: true,
+    required,
     message: msg,
     type,
     trigger,
+    pattern,
   }
   return rule
 }
