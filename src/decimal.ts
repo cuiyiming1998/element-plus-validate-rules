@@ -33,6 +33,7 @@ const createPatternRule = (option: DecimalOption): BaseOption => {
       cb(new Error(msg))
 
     const valueStr = value.toString()
+    console.log(M.numberString.test(valueStr))
     if (!M.numberString.test(valueStr)) {
       const numberError = createMessage(message, name, '应为数字')
       cb(new Error(numberError))
