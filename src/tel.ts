@@ -10,7 +10,7 @@ import M from './utils/regExpMap'
 const createTelRule = (option: BaseOption) => {
   const { message, trigger, type, name, pattern } = option
 
-  const msg = createMessage(message, name)
+  const msg = createMessage(message, name, '请重新输入')
   const rule = {
     message: msg,
     type,
@@ -31,5 +31,6 @@ export function tel(option?: TelOption) {
   const mobileRule = createTelRule(baseOption)
   pushRules(rules, mobileRule)
 
+  console.log('1', rules)
   return [...rules]
 }

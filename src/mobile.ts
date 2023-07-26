@@ -10,7 +10,7 @@ import M from './utils/regExpMap'
 const createMobileRule = (option: MobileOption = {}) => {
   const { message, trigger, type, name, pattern } = option
 
-  const msg = createMessage(message, name)
+  const msg = createMessage(message, name, '请重新输入')
   const rule = {
     message: msg,
     type,

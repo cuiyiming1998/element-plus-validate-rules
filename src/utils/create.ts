@@ -111,6 +111,7 @@ export const createBaseOption = <T = any>(name: string, option?: BaseOption, typ
     name,
     trigger: ['blur', 'change'],
     type: type || 'string',
+    pattern: option?.pattern,
   }
   const o = assign(baseOption, option)
 

@@ -10,11 +10,11 @@ import {
 import M from './utils/regExpMap'
 
 const createPatternRule = (option: BaseOption): BaseOption => {
-  const { message, trigger, name } = option
+  const { message, trigger, name, pattern } = option
 
   const msg = createMessage(message, name, '应仅为数字')
   const rule: BaseOption = {
-    pattern: M.numberString,
+    pattern: pattern || M.numberString,
     message: msg,
     trigger,
   }
