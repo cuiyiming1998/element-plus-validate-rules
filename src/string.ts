@@ -2,6 +2,7 @@ import type { StringOption } from './types'
 import {
   createBaseOption,
   createLengthRule,
+  createPatternRule,
   createRangeRule,
   createRequiredRule,
   pushRules,
@@ -14,6 +15,9 @@ export function string(option: StringOption) {
 
   const requiredRule = createRequiredRule(baseOption)
   pushRules(rules, requiredRule)
+
+  const patternRule = createPatternRule(baseOption)
+  pushRules(rules, patternRule)
 
   const lengthRule = createLengthRule(baseOption)
   pushRules(rules, lengthRule)

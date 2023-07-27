@@ -7,6 +7,9 @@ import { numberStr } from './numberString'
 import { todayAfter } from './time'
 import { decimal } from './decimal'
 import { int } from './int'
+import { email } from './email'
+import { lng } from './lng'
+import { lat } from './lat'
 import type {
   DecimalOption,
   IntOption,
@@ -21,6 +24,18 @@ import type {
 export class Rules {
   str(option: StringOption) {
     return string(option)
+  }
+
+  email(option: StringOption) {
+    return email(option)
+  }
+
+  lat(option: StringOption) {
+    return lat(option)
+  }
+
+  lng(option: StringOption) {
+    return lng(option)
   }
 
   numberStr(option: StringOption) {

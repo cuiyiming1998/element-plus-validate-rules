@@ -41,7 +41,6 @@ export const createRequiredRule: CreateFn = (option) => {
     message: msg,
     type,
     trigger,
-    pattern,
   }
   return rule
 }
@@ -57,7 +56,7 @@ export const createLengthRule: CreateFn = (option) => {
   const rule = {
     len,
     message: msg,
-    trigger: trigger || 'blur',
+    trigger: trigger || ['blur', 'change'],
     type,
   }
   return rule
@@ -95,9 +94,27 @@ export const createRangeRule: CreateFn = (option) => {
     min,
     max,
     message: msg,
-    trigger: trigger || 'blur',
+    trigger: trigger || ['blur', 'change'],
     type,
   }
+  return rule
+}
+
+export const createPatternRule: CreateFn = (option) => {
+  const { name, pattern, trigger, message, type } = option
+
+  if (!pattern)
+    return false
+
+  const msg = createMessage(message, name, '请重新输入')
+
+  const rule = {
+    message: msg,
+    trigger: trigger || 'blur',
+    type,
+    pattern,
+  }
+
   return rule
 }
 

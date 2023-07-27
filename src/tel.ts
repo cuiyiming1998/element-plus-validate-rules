@@ -31,6 +31,5 @@ export function tel(option?: TelOption) {
   const mobileRule = createTelRule(baseOption)
   pushRules(rules, mobileRule)
 
-  console.log('1', rules)
   return [...rules]
 }
