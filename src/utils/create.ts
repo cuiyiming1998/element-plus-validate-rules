@@ -26,6 +26,7 @@ export const createRequiredMessage: CreateRequiredMessageFn = (
     string: '输入',
     number: '输入',
     array: '选择',
+    select: '选择',
   }
 
   const inputType = map[type || 'string']
@@ -33,9 +34,9 @@ export const createRequiredMessage: CreateRequiredMessageFn = (
 }
 
 export const createRequiredRule: CreateFn = (option) => {
-  const { required, message, name, trigger, type, pattern } = option
+  const { required, message, name, trigger, type, select } = option
 
-  const msg = createRequiredMessage(message, name, false, type)
+  const msg = createRequiredMessage(message, name, false, select ? 'select' : type)
   const rule = {
     required,
     message: msg,

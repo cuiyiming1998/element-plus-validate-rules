@@ -18,7 +18,7 @@ export function select(option: SelectOption = {}) {
   const type = getType(multiple)
   option.type = type
 
-  const baseOption = createBaseOption(name || '', option)
+  const baseOption = createBaseOption(name || '', { ...option, select: true })
 
   const requiredRule = createRequiredRule(baseOption)
   pushRules(rules, requiredRule)

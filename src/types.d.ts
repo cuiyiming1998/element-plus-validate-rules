@@ -37,6 +37,7 @@ export interface BaseOption<T = any> {
   required?: boolean
   pattern?: RegExp | string
   message?: string
+  select?: boolean
   asyncValidator?: (rule: any, value: T, callback: (error?: string | Error) => void, source: T, options: any) => any
   validator?: (rule: any, value: T, callback: (error?: string | Error) => void, source: T, options: any) => any
 }

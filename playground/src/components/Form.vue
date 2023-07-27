@@ -8,6 +8,7 @@ const ruleForm = reactive<Record<string, any>>({
   nickname: '',
   multiple: [],
   mobile: '',
+  select: '',
   username: '',
   password: '',
   code: '',
@@ -28,6 +29,10 @@ const rules = reactive<FormRules>({
       name: '昵称',
     }),
   ],
+  select: Rules.select({
+    name: '选择',
+    required: true,
+  }),
   multiple: [
     ...Rules.select({
       required: true,
@@ -131,6 +136,18 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
     >
       <el-form-item label="昵称" prop="nickname">
         <el-input v-model="ruleForm.nickname" placeholder="昵称" />
+      </el-form-item>
+      <el-form-item label="选择" prop="select">
+        <el-select
+          v-model="ruleForm.select"
+          clearable
+          placeholder="多选"
+          style="width: 100%;"
+        >
+          <el-option label="Zone one" value="shanghai" />
+          <el-option label="Zone two" value="beijing" />
+          <el-option label="Zone two" value="guangzhou" />
+        </el-select>
       </el-form-item>
       <el-form-item label="多选" prop="multiple">
         <el-select

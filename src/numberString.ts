@@ -38,7 +38,5 @@ export function numberStr(option: StringOption) {
   const rangeRule = createRangeRule(option)
   pushRules(rules, rangeRule)
 
-  console.log(rules)
-
   return [...rules]
 }
