@@ -1,5 +1,4 @@
 import type { BaseOption, DecimalOption } from './types'
-import { isFakeValue } from './utils'
 import {
   createBaseOption,
   createMessage,
@@ -29,11 +28,10 @@ const createPatternRule = (option: DecimalOption): BaseOption => {
   const msg = createMessage(message, name, m)
 
   const validator = (_: any, value: number | string, cb: Fn) => {
-    if (isFakeValue(value))
-      cb(new Error(msg))
-
-    if (value === '' || value === 0)
+    if (!value) {
       cb()
+      return
+    }
 
     const valueStr = value.toString()
     if (!M.decimal.test(valueStr)) {

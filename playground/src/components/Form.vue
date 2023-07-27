@@ -75,7 +75,6 @@ const rules = reactive<FormRules>({
   ],
   number: [
     ...Rules.decimal({
-      required: true,
       name: '数字',
       precision: 1,
     }),
