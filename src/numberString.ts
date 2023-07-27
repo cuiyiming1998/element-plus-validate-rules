@@ -35,7 +35,7 @@ export function numberStr(option: StringOption) {
   const lengthRule = createLengthRule(baseOption)
   pushRules(rules, lengthRule)
 
-  const rangeRule = createRangeRule(option)
+  const rangeRule = createRangeRule(baseOption)
   pushRules(rules, rangeRule)
 
   return [...rules]

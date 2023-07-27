@@ -72,6 +72,7 @@ export const createRangeRule: CreateFn = (option) => {
     return false
 
   let sup = ''
+  console.log(type)
   if (type === 'string') {
     if (hasMin && !hasMax)
       sup = `长度最少为${min}个字符`
